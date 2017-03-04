@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="./public/css/custom.css">
+	<link rel="stylesheet" type="text/css" href="./public/css/font-awesome.min.css">
+	<title></title>
+</head>
+<body>
+<span><i class="fa fa-usd" aria-hidden="true"></i>
+DOLAR:<label id="usd"></label></span><br>
+<span>EURO:<label id="euro"></label></span><br>
+<span>GOLD:<label id="gold"></label></span>
+<!-- Insert this line above script imports  -->
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>    
+<script type="text/javascript">
+    let $ = require('jquery');
+    const {ipcRenderer} = require('electron');
+    const cron = require('node-cron');
+
+    $(function() {
+
+    	let checkMinutes = 1;
+		let interval = checkMinutes * 60 * 1000;
+
+		setTimeout(function(){
+		  getData();
+		}, 1000);
+
+    	let task = cron.schedule('*/10 * * * *', function() {
+    		getData();
+    	});
+
+    	task.start();
+
+    	function getData(){
+    		ipcRenderer.on('currency-reply', (event, data) => {
+			  let len = data.length;
+			  for (var i = 0; i < len; i++){
+			  	$('#usd').text(data[i].status_symbol)
+			  }
+			});
+			ipcRenderer.send('get-currency', true);
+    	}
+
+    });
+
+
+</script>
+</body>
+</html>
