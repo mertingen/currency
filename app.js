@@ -38,7 +38,6 @@ app.on('ready', () => {
       	mainWindow.movable = true;
       	mainWindow.alwaysOnTop = false;
       	console.log('clicked');
-      	mainWindow.loadURL('file://' + __dirname + '/index.html');
       }
      }
    ]);
