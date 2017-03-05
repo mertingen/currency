@@ -23,3 +23,24 @@ body {
 .fz-smaller {
 	font-size: smaller;
 }
+
+.mt-50 {
+	margin-top: 50px;
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  
+  border-top: 13px solid #f00;
+}
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  
+  border-bottom: 13px solid green;
+}

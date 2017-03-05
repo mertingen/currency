@@ -17,28 +17,25 @@ app.on('ready', () => {
   // Create the browser window.
   mainWindow = new BrowserWindow(
   	{
-  		width: 800,
-  		height: 600,
-  		alwaysOnTop: false,
+  		width: 115,
+  		height: 410,
+  		alwaysOnTop: true,
   		resizable: true,
   		movable: true,
+      frame: false,
   		icon: './public/icons/tray-ico.png'
   	}
   );
-  mainWindow.openDevTools();
+  //mainWindow.openDevTools();
 
   let iconPath = path.join(__dirname, 'public/icons/tray-ico.png');
   tray = new Tray(iconPath);
   const contextMenu = Menu.buildFromTemplate([
      {
-      label: 'Item1',
-      type: 'radio',
-      checked: true,
+      label: 'Quit',
+      type: 'normal',
       click: function() {
-      	//contextMenu.items[1].checked = false;
-      	mainWindow.movable = true;
-      	mainWindow.alwaysOnTop = false;
-      	console.log('clicked');
+        app.quit();
       }
      }
    ]);
@@ -46,7 +43,7 @@ app.on('ready', () => {
    tray.setContextMenu(contextMenu)
 
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/views/index.html');
 
   var data = '';
 
