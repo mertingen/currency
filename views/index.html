@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../public/css/custom.css">
+	<link rel="stylesheet" type="text/css" href="../public/css/font-awesome.min.css">
+	<title></title>
+</head>
+<body>
+	<div>
+		<div class="">
+			<i class="fa fa-line-chart fa-3x"></i>
+			<div class="fz-smaller">GRAM ALTIN</div>
+			<span class="lg-text" id="gold-val"></span><br>
+			<span class="float-l" id="gold-change-rate"></span>
+		</div>
+		<div class="mt-50">
+			<i class="fa fa-usd fa-3x "></i>
+			<div class="fz-smaller">DOLAR</div>
+			<span class="lg-text" id="dolar-val"></span><br>
+			<span class="float-l" id="dolar-change-rate"></span>
+		</div>
+		<div class="mt-50">
+			<i class="fa fa-euro fa-3x "></i>
+			<div class="fz-smaller">EURO</div>
+			<span class="lg-text" id="euro-val"></span><br>
+			<span class="float-l" id="euro-change-rate"></span>
+		</div>
+	</div>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>    
+<script type="text/javascript">
+    let $ = require('jquery');
+    const {ipcRenderer} = require('electron');
+    const cron = require('node-cron');
+
+    $("body").css("overflow", "hidden");
+
+    $(function() {
+
+		setTimeout( () =>{
+		  getData();
+		}, 500);
+
+    	let requestTask = cron.schedule('*/10 * * * *', () => {
+    		getData();
+    	});
+    	requestTask.start();
+
+    	let refreshPage = cron.schedule('*/6 * * * *', () => {
+    		location.reload();
+    	});
+    	refreshPage.start();
+
+    	function getData(){
+    		ipcRenderer.on('currency-reply', (event, data) => {
+			  let len = data.length;
+			  for (var i = 0; i < len; i++){
+			  	if (data[i].name == 'gram-altin'){
+			  		$('#gold-val').text(data[i].selling);
+			  		$('#gold-change-rate').text('% ' + data[i].change_rate);
+			  		if (data[i].status == 'down'){
+			  			$('#gold-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-down></div>');
+			  		}else{
+			  			$('#gold-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-up></div>');
+			  		}
+			  	}else if(data[i].name == 'amerikan-dolari'){
+			  		$('#dolar-val').text(data[i].selling);
+			  		$('#dolar-change-rate').text('% ' + data[i].change_rate);
+			  		if (data[i].status == 'down'){
+			  			$('#dolar-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-down></div>');
+			  		}else{
+			  			$('#dolar-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-up></div>');
+			  		}
+			  	}else if (data[i].name == 'euro'){
+			  		$('#euro-val').text(data[i].selling);
+			  		$('#euro-change-rate').text('% ' + data[i].change_rate);
+			  		if (data[i].status == 'down'){
+			  			$('#euro-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-down></div>');
+			  		}else{
+			  			$('#euro-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-up></div>');
+			  		}
+			  	}
+			  }
+			});
+			ipcRenderer.send('get-currency', true);
+    	}
+
+    });
+
+
+</script>
+</body>
+</html>
