@@ -9,7 +9,8 @@
   "author": "Mert Simsek",
   "license": "ISC",
   "dependencies": {
-  	"electron": "^1.6.1",
+    "electron": "^1.6.1",
+    "electron-positioner": "^3.0.0",
     "jquery": "^3.1.1",
     "node-cron": "^1.1.3"
   }

@@ -2,3 +2,24 @@ body {
 	background-color: #222446;
 	color: white;
 }
+
+.ml-15 {
+	margin-left: 15px;
+}
+
+.float-l {
+	width: 190px;
+	float: left;
+}
+
+.ml-55 {
+	margin-left: 40px;
+}
+
+.lg-text {
+	font-size: x-large;
+}
+
+.fz-smaller {
+	font-size: smaller;
+}

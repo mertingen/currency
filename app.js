@@ -1,7 +1,8 @@
 const {app, BrowserWindow, ipcMain, Tray, Menu} = require('electron');
 const request = require('request');
 const path = require('path');
-
+const Positioner = require('electron-positioner');
+process.setMaxListeners(0);
 let mainWindow;
 
 // Quit when all windows are closed.
@@ -18,9 +19,9 @@ app.on('ready', () => {
   	{
   		width: 800,
   		height: 600,
-  		alwaysOnTop: true,
-  		resizable: false,
-  		movable: false,
+  		alwaysOnTop: false,
+  		resizable: true,
+  		movable: true,
   		icon: './public/icons/tray-ico.png'
   	}
   );
@@ -62,6 +63,9 @@ app.on('ready', () => {
 	  });
 	}
   });
+
+  var positioner = new Positioner(mainWindow);
+  positioner.move('topRight')
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
