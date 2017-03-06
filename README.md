@@ -25,7 +25,9 @@ This show the currency for Turkish currency
 3) You can export Windows, Gnu/Linux or Mac Os app. You should launch the app from the Terminal:
 
 npm run package-linux
+
 npm run package-mac
+
 npm run package-win
 
 # Currency
