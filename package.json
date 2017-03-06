@@ -1,7 +1,7 @@
 {
   "name": "currency",
   "version": "1.0.0",
-  "description": "Foreign curreny app.",
+  "description": "Foreign currency app.",
   "main": "app.js",
   "scripts": {
     "test": "electron .",
