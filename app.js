@@ -17,15 +17,17 @@ app.on('ready', () => {
   // Create the browser window.
   mainWindow = new BrowserWindow(
   	{
+      title: "Currency",
   		width: 115,
   		height: 410,
   		alwaysOnTop: true,
   		resizable: false,
-  		movable: false,
+  		movable: true,
       frame: false,
-  		icon: './public/icons/tray-ico.png'
+  		icon: './public/icons/tray-ico.png',
   	}
   );
+
   //mainWindow.openDevTools();
 
   let iconPath = path.join(__dirname, 'public/icons/tray-ico.png');
