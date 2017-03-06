@@ -65,7 +65,7 @@ app.on('ready', () => {
   });
 
   var positioner = new Positioner(mainWindow);
-  positioner.move('topRight')
+  positioner.move('center')
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
