@@ -54,8 +54,11 @@
     		ipcRenderer.send('get-currency', true);
     		ipcRenderer.on('currency-reply', (event, data) => {
     		  if (!data){
-    		  	  alert("Internet connection required!");
+    		  	  $('.container').hide();
+    		  	  $('body').append('<label id="err">Internet connection required!</label>');
     		  }else{
+    		  	  $('.container').show();
+    		  	  $('#err').hide();
 				  let len = data.length;
 				  for (var i = 0; i < len; i++){
 				  	if (data[i].name == 'gram-altin'){
