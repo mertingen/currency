@@ -20,8 +20,8 @@ app.on('ready', () => {
   		width: 115,
   		height: 410,
   		alwaysOnTop: true,
-  		resizable: true,
-  		movable: true,
+  		resizable: false,
+  		movable: false,
       frame: false,
   		icon: './public/icons/tray-ico.png'
   	}
@@ -47,18 +47,20 @@ app.on('ready', () => {
 
   var data = '';
 
-  request('https://altin.doviz.com/api/v1/header', (error, response, body) => {
-    if (response.statusCode != 200){
-      console.log('error: ', error);
-    }else{
-      data = JSON.parse(body).splice(0,3);
-      ipcMain.on('get-currency', (event, arg) => {
-		console.log(arg);
-		if (arg === true){
-	      event.sender.send('currency-reply', data);
-	    }
-	  });
-	}
+  ipcMain.on('get-currency', (event,arg) => {
+    if (arg === true){
+      request('https://altin.doviz.com/api/v1/header', (error, response, body) => {
+        if (response.statusCode != 200){
+          console.log('error: ', error);
+        }else{
+          data = JSON.parse(body).splice(0,3);
+          console.log(arg);
+          if (arg === true){
+            event.sender.send('currency-reply', data);
+          }
+        }
+      });
+    }
   });
 
   var positioner = new Positioner(mainWindow);

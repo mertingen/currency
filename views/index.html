@@ -40,17 +40,18 @@
 		  getData();
 		}, 500);
 
-    	let requestTask = cron.schedule('*/10 * * * *', () => {
+    	let requestTask = cron.schedule('*/1 * * * *', () => {
     		getData();
     	});
     	requestTask.start();
 
-    	let refreshPage = cron.schedule('*/6 * * * *', () => {
+    	let refreshPage = cron.schedule('*/3 * * * *', () => {
     		location.reload();
     	});
     	refreshPage.start();
 
     	function getData(){
+    		ipcRenderer.send('get-currency', true);
     		ipcRenderer.on('currency-reply', (event, data) => {
 			  let len = data.length;
 			  for (var i = 0; i < len; i++){
@@ -81,7 +82,6 @@
 			  	}
 			  }
 			});
-			ipcRenderer.send('get-currency', true);
     	}
 
     });
