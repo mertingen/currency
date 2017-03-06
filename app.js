@@ -50,12 +50,11 @@ app.on('ready', () => {
   ipcMain.on('get-currency', (event,arg) => {
     if (arg === true){
       request('https://altin.doviz.com/api/v1/header', (error, response, body) => {
-        if (response.statusCode != 200){
-          console.log('error: ', error);
+        if (error){ 
+          event.sender.send('currency-reply', false);
         }else{
-          data = JSON.parse(body).splice(0,3);
-          console.log(arg);
           if (arg === true){
+            data = JSON.parse(body).splice(0,3);
             event.sender.send('currency-reply', data);
           }
         }

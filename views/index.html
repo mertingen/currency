@@ -6,7 +6,7 @@
 	<title></title>
 </head>
 <body>
-	<div>
+	<div class="container">
 		<div class="">
 			<i class="fa fa-line-chart fa-3x"></i>
 			<div class="fz-smaller">GRAM ALTIN</div>
@@ -53,34 +53,38 @@
     	function getData(){
     		ipcRenderer.send('get-currency', true);
     		ipcRenderer.on('currency-reply', (event, data) => {
-			  let len = data.length;
-			  for (var i = 0; i < len; i++){
-			  	if (data[i].name == 'gram-altin'){
-			  		$('#gold-val').text(data[i].selling);
-			  		$('#gold-change-rate').text('% ' + data[i].change_rate);
-			  		if (data[i].status == 'down'){
-			  			$('#gold-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-down></div>');
-			  		}else{
-			  			$('#gold-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-up></div>');
-			  		}
-			  	}else if(data[i].name == 'amerikan-dolari'){
-			  		$('#dolar-val').text(data[i].selling);
-			  		$('#dolar-change-rate').text('% ' + data[i].change_rate);
-			  		if (data[i].status == 'down'){
-			  			$('#dolar-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-down></div>');
-			  		}else{
-			  			$('#dolar-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-up></div>');
-			  		}
-			  	}else if (data[i].name == 'euro'){
-			  		$('#euro-val').text(data[i].selling);
-			  		$('#euro-change-rate').text('% ' + data[i].change_rate);
-			  		if (data[i].status == 'down'){
-			  			$('#euro-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-down></div>');
-			  		}else{
-			  			$('#euro-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-up></div>');
-			  		}
-			  	}
-			  }
+    		  if (!data){
+    		  	  alert("Internet connection required!");
+    		  }else{
+				  let len = data.length;
+				  for (var i = 0; i < len; i++){
+				  	if (data[i].name == 'gram-altin'){
+				  		$('#gold-val').text(data[i].selling);
+				  		$('#gold-change-rate').text('% ' + data[i].change_rate);
+				  		if (data[i].status == 'down'){
+				  			$('#gold-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-down></div>');
+				  		}else{
+				  			$('#gold-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-up></div>');
+				  		}
+				  	}else if(data[i].name == 'amerikan-dolari'){
+				  		$('#dolar-val').text(data[i].selling);
+				  		$('#dolar-change-rate').text('% ' + data[i].change_rate);
+				  		if (data[i].status == 'down'){
+				  			$('#dolar-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-down></div>');
+				  		}else{
+				  			$('#dolar-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-up></div>');
+				  		}
+				  	}else if (data[i].name == 'euro'){
+				  		$('#euro-val').text(data[i].selling);
+				  		$('#euro-change-rate').text('% ' + data[i].change_rate);
+				  		if (data[i].status == 'down'){
+				  			$('#euro-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-down></div>');
+				  		}else{
+				  			$('#euro-change-rate').html('% ' + data[i].change_rate + '<div style="float:left" class=arrow-up></div>');
+				  		}
+				  	}
+			      }
+			    }
 			});
     	}
 
